@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version Checker</title>
+    <style>
+        /* CSS styles for top alignment and readability */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Aligned to the top */
+            height: 100vh;
+            margin: 0;
+            padding-top: 50px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .message {
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            font-size: 1.5em;
+        }
+        .version-info {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .update-needed { color: #cc0000; }
+        .latest-version { color: #008800; }
+        .download-link { color: #0000cc; }
+    </style>
+</head>
+<body>
+
+    <div id="m" class="message">Checking version...</div>
+
+    <script>
+        // Version Comparison Function (cV) - Supports X.Y.Z format
+        function cV(v1, v2) {
+            // Split version strings by dot and map to integers (e.g., '4.0.1' -> [4, 0, 1])
+            const p1 = v1.split('.').map(p => parseInt(p, 10));
+            const p2 = v2.split('.').map(p => parseInt(p, 10));
+            const maxL = Math.max(p1.length, p2.length);
+
+            for (let i = 0; i < maxL; i++) {
+                // Treat missing version parts as 0 (e.g., '5.0' vs '5.0.0')
+                const n1 = p1[i] !== undefined ? p1[i] : 0;
+                const n2 = p2[i] !== undefined ? p2[i] : 0;
+                if (n1 < n2) return -1;
+                if (n1 > n2) return 1;
+            }
+            return 0;
+        }
+
+        // --- Main Logic ---
+        const urlP = new URLSearchParams(window.location.search);
+        
+        // **關鍵變更 1:** 檢查參數是否存在
+        const paramV = urlP.get('my_version'); 
+        
+        // 如果參數存在，使用參數值；如果不存在，使用預設值 '5.0' 進行比較判斷
+        const currV = paramV !== null ? paramV : '5.0'; 
+        
+        // Define target and next major versions (must be strings)
+        const TARGET_V = '5.0.0'; 
+        const NEXT_MAJOR_V = '6.0.0';
+        
+        const mCont = document.getElementById('m');
+        let mainCont = '', cName = '';
+
+        const tComp = cV(currV, TARGET_V);
+        const nComp = cV(currV, NEXT_MAJOR_V);
+
+        // 1. Prepare version information string
+        let infoCont = `
+            <div class="version-info">
+                Latest Version is: **${TARGET_V}**
+            </div>
+        `;
+
+        // **關鍵變更 2:** 只有當 URL 帶有 my_version 參數時，才顯示 "Your Version"
+        if (paramV !== null) {
+            // 如果 currV 是 '5.0' 或 '4.0.1' 等來自 URL 的值，則在 "Latest Version" 前面加上 "Your Version"
+            infoCont = `
+                <div class="version-info">
+                    Your Version is: **${currV}**<br>
+                    Latest Version is: **${TARGET_V}**
+                </div>
+            `;
+        }
+
+
+        if (tComp === -1) {
+            // Version < 5.0.0 (e.g., 4.0.1)
+            mainCont = 'New version available.';
+            cName = 'update-needed';
+        } else if (tComp === 0) {
+            // Version == 5.0.0
+            mainCont = 'You are running the latest version.';
+            cName = 'latest-version';
+        } else if (nComp <= 0) {
+            // Version > 5.0.0 AND <= 6.0.0 (e.g., 5.1.0, 6.0.0)
+            mainCont = 'Where can I download your version?';
+            cName = 'download-link';
+        } else {
+            // Version > 6.0.0 (e.g., 6.0.1, 7.0.0)
+            mainCont = `Version ${currV} under review...`;
+            cName = 'default';
+        }
+
+        // 2. Update display: combine info content and main message
+        mCont.innerHTML = infoCont + `<strong>${mainCont}</strong>`;
+        mCont.className = `message ${cName}`;
+    </script>
+
+</body>
+</html>
