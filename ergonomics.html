@@ -19,8 +19,8 @@
   /* 左邊選單 */
   .menu {
     width: 240px;           /* 初始寬度 */
-    min-width: 120px;
-    max-width: 400px;
+    min-width: 240px;
+    max-width: 960px;
     background: #f2f2f2;
     padding: 10px;
     box-sizing: border-box;
@@ -138,18 +138,28 @@ let dragging = false;
 divider.addEventListener("mousedown", () => {
   dragging = true;
   document.body.style.cursor = "col-resize";
-});
-
-document.addEventListener("mousemove", (e) => {
-  if (!dragging) return;
-  const newWidth = e.clientX;
-  menuEl.style.width = `${newWidth}px`;
+  document.body.style.userSelect = "none";
 });
 
 document.addEventListener("mouseup", () => {
   dragging = false;
   document.body.style.cursor = "";
+  document.body.style.userSelect = "";
 });
+
+const container = document.querySelector(".container");
+document.addEventListener("mousemove", (e) => {
+  if (!dragging) return;
+
+  const rect = container.getBoundingClientRect();
+  const newWidth = e.clientX - rect.left;
+
+  const min = 120;
+  const max = 360;
+
+  menuEl.style.width = `${Math.min(max, Math.max(min, newWidth))}px`;
+});
+
 </script>
 
 </body>
