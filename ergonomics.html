@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    margin: 0;
+    font-family: Arial;
+  }
+  .container {
+    display: flex;
+    height: 100vh;
+  }
+  .menu {
+    width: 200px;
+    background: #f2f2f2;
+    padding: 10px;
+  }
+  .menu li {
+    list-style: none;
+    padding: 8px;
+    cursor: pointer;
+  }
+  .menu li:hover {
+    background: #ddd;
+  }
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+  <!-- 左邊 -->
+  <ul class="menu">
+    <li onclick="showContent('a')">頁面 A</li>
+    <li onclick="showContent('b')">頁面 B</li>
+    <li onclick="showContent('c')">頁面 C</li>
+  </ul>
+
+  <!-- 右邊 -->
+  <div class="content" id="content">
+    請選擇左邊選單
+  </div>
+</div>
+
+<script>
+function showContent(type) {
+  const content = document.getElementById('content');
+
+  if (type === 'a') {
+    content.innerHTML = "<h2>這是 A</h2><p>A 的內容</p>";
+  } else if (type === 'b') {
+    content.innerHTML = "<h2>這是 B</h2><p>B 的內容</p>";
+  } else if (type === 'c') {
+    content.innerHTML = "<h2>這是 C</h2><p>C 的內容</p>";
+  }
+}
+</script>
+</body>
+</html>
