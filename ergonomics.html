@@ -5,82 +5,160 @@
 <title>Visual Components x Work(s) Ergo</title>
 
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-  }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-  .container {
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-  }
+/* =========================
+   Layout
+========================= */
+.container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
 
-  /* 左邊選單 */
-  .menu {
-    width: 360px;           /* 初始寬度 */
-    min-width: 360px;
-    max-width: 960px;
-    background: #f2f2f2;
-    padding: 10px;
-    box-sizing: border-box;
-  }
+/* 左邊選單（桌機） */
+.menu {
+  width: 360px;
+  min-width: 360px;
+  max-width: 960px;
+  background: #f2f2f2;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
 
-  .menu li {
-    list-style: none;
-    padding: 8px;
-    cursor: pointer;
-  }
+.menu li {
+  list-style: none;
+  padding: 10px;
+  cursor: pointer;
+}
 
-  .menu li:hover,
-  .menu li.active {
-    background: #ddd;
-  }
+.menu li:hover,
+.menu li.active {
+  background: #ddd;
+}
 
-  /* 中間分隔線 */
-  .divider {
-    width: 5px;
-    cursor: col-resize;
-    background: #ccc;
-  }
+/* 分隔線 */
+.divider {
+  width: 5px;
+  cursor: col-resize;
+  background: #ccc;
+}
 
-  /* 右邊內容 */
-  .content {
-    flex: 1;
-    padding: 20px;
-    overflow: auto;
-  }
+/* 右邊內容 */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+}
 
-  /* YouTube RWD */
-  .video-wrapper {
+/* =========================
+   YouTube RWD
+========================= */
+.video-wrapper {
   position: relative;
   width: 100%;
-  max-width: auto;     /* 不要無限寬 */
   aspect-ratio: 16 / 9;
-  max-height: 70vh;     /* 👈 關鍵：限制高度 */
+  max-height: 70vh;
   margin-top: 10px;
-  }
+}
 
-  .video-wrapper iframe {
+.video-wrapper iframe {
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+/* =========================
+   Mobile Header
+========================= */
+.mobile-header {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #f2f2f2;
+  border-bottom: 1px solid #ddd;
+}
+
+#menuToggle {
+  font-size: 22px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.mobile-title {
+  font-size: 16px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================
+   Mobile Drawer Mode
+========================= */
+@media (max-width: 768px) {
+
+  .mobile-header {
+    display: flex;
   }
+
+  .container {
+    position: relative;
+  }
+
+  .menu {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    min-width: unset;
+    max-width: unset;
+    background: #f2f2f2;
+    z-index: 1000;
+    transition: left 0.25s ease;
+  }
+
+  .menu.show {
+    left: 0;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .content {
+    padding: 16px;
+  }
+}
 </style>
 </head>
 
 <body>
 
+<!-- Mobile Header -->
+<div class="mobile-header">
+  <button id="menuToggle">☰</button>
+  <span class="mobile-title">Visual Components x Work(s) Ergo</span>
+</div>
+
 <div class="container">
   <ul class="menu" id="menu"></ul>
   <div class="divider" id="divider"></div>
   <div class="content" id="content">
-    <span style="font-size: 48px;">Visual Components x Work(s) Ergo</span>
+    <span style="font-size: 42px;">Visual Components x Work(s) Ergo</span>
   </div>
 </div>
 
 <script>
-/* 資料來源（方式二） */
+/* =========================
+   Data
+========================= */
 const pages = [
   {
     title: "01 Floating Hands and MultiPose",
@@ -91,18 +169,19 @@ const pages = [
     title: "02 Copy and Paste",
     videoId: "0bh-dkYO8WU",
     desc: `All the features of Work(s) Ergo will be integrated into a single component and placed on the Visual Components eCatalogue for two major reasons:
-1. The eCatalogue offers extremely fast update responses, once a fix is made, updates can be pushed in as little as a few dozen minutes without needing to wait for a full software release.
-2. It supports copy-paste, meaning you can complete the setup for three different heights on a warehouse shelf in under a minute and get the analysis report along with dozens of feasible postures before your coffee is even finished brewing.`;
+1. The eCatalogue offers extremely fast update responses.
+2. It supports copy-paste and fast configuration.`
   }
 ];
 
-/* YouTube embed */
+/* =========================
+   YouTube Embed
+========================= */
 function youtubeEmbed(videoId) {
   return `
     <div class="video-wrapper">
       <iframe
         src="https://www.youtube.com/embed/${videoId}"
-        frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen>
       </iframe>
@@ -110,7 +189,9 @@ function youtubeEmbed(videoId) {
   `;
 }
 
-/* 顯示頁面 */
+/* =========================
+   Show Page
+========================= */
 function showPage(index) {
   const p = pages[index];
   const content = document.getElementById("content");
@@ -124,20 +205,38 @@ function showPage(index) {
     <p>${p.desc}</p>
     ${youtubeEmbed(p.videoId)}
   `;
+
+  /* 手機自動收起抽屜 */
+  if (window.innerWidth <= 768) {
+    menuEl.classList.remove("show");
+  }
 }
 
-/* 產生左邊 menu */
-const menu = document.getElementById("menu");
+/* =========================
+   Build Menu
+========================= */
+const menuEl = document.getElementById("menu");
+
 pages.forEach((p, i) => {
   const li = document.createElement("li");
   li.textContent = p.title;
   li.onclick = () => showPage(i);
-  menu.appendChild(li);
+  menuEl.appendChild(li);
 });
 
-/* ===== 分隔線拖曳邏輯 ===== */
+/* =========================
+   Mobile Toggle
+========================= */
+const menuToggle = document.getElementById("menuToggle");
+
+menuToggle.addEventListener("click", () => {
+  menuEl.classList.toggle("show");
+});
+
+/* =========================
+   Divider Drag (Desktop)
+========================= */
 const divider = document.getElementById("divider");
-const menuEl = document.querySelector(".menu");
 let dragging = false;
 
 divider.addEventListener("mousedown", () => {
@@ -152,19 +251,17 @@ document.addEventListener("mouseup", () => {
   document.body.style.userSelect = "";
 });
 
-const container = document.querySelector(".container");
 document.addEventListener("mousemove", (e) => {
-  if (!dragging) return;
+  if (!dragging || window.innerWidth <= 768) return;
 
-  const rect = container.getBoundingClientRect();
+  const rect = document.querySelector(".container").getBoundingClientRect();
   const newWidth = e.clientX - rect.left;
 
-  const min = 120;
-  const max = 360;
+  const min = 200;
+  const max = 600;
 
   menuEl.style.width = `${Math.min(max, Math.max(min, newWidth))}px`;
 });
-
 </script>
 
 </body>
