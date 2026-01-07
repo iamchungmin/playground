@@ -98,6 +98,10 @@ body {
   margin-top: 12px;
 }
 
+.video-wrapper img {
+  display: block;
+}
+   
 .video-wrapper iframe {
   width: 100%;
   height: 100%;
@@ -165,6 +169,20 @@ body {
    Data
 ========================= */
 const pages = [
+  {
+    title: "Contact",
+    videoId: "",
+    desc: `
+    Visual Components: <a href="mailto:Mustafa.Kamal@VisualComponents.com">Mustafa.Kamal@VisualComponents.com</a><br>
+    Work(s) Ergo: <a href="mailto:info@worksergo.com">info@worksergo.com</a>
+    `
+  },
+  {
+    title: "Analysis Tools",
+    image: "https://iamchungmin.github.io/playground/AnalysisTools.png",
+    videoId: "",
+    desc: ``
+  },
   {
     title: "01 - Floating Hands and MultiPose",
     videoId: "1TK7Z2mKARo",
@@ -239,15 +257,7 @@ const pages = [
     title: "Coming soon",
     videoId: "",
     desc: ``
-  },
-  {
-    title: "Contact",
-    videoId: "",
-    desc: `
-    Visual Components: <a href="mailto:Mustafa.Kamal@VisualComponents.com">Mustafa.Kamal@VisualComponents.com</a><br>
-    Work(s) Ergo: <a href="mailto:info@worksergo.com">info@worksergo.com</a>
-    `
-  }
+  }  
 ];
 
 /* =========================
@@ -270,6 +280,14 @@ function youtubeEmbed(id) {
 ========================= */
 function showPage(index) {
   const p = pages[index];
+
+  // 建立圖片 HTML (如果該頁面有 image 屬性)
+  const imgHtml = p.image ? `
+    <div class="video-wrapper">
+      <img src="${p.image}" style="width:100%; height:100%; object-fit: cover; border-radius: 4px;">
+    </div>
+  ` : "";
+
   content.innerHTML = `
     <h2>${p.title}</h2>
     <p>${p.desc}</p>
