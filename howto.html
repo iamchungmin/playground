@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ergonomics - How To</title>
+
+<style>
+/* =========================
+   Base
+========================= */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================
+   Glass Header (Desktop + Mobile)
+========================= */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  font-size: 18px;
+  font-weight: bold;
+
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Hamburger (mobile only) */
+#menuToggle {
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* =========================
+   Layout
+========================= */
+.container {
+  display: flex;
+  height: calc(100vh - 56px);
+  overflow: hidden;
+}
+
+/* Left Menu (Desktop) */
+.menu {
+  width: 360px;
+  min-width: 360px;
+  background: #f2f2f2;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.menu li {
+  list-style: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.menu li:hover,
+.menu li.active {
+  background: #ddd;
+}
+
+/* Divider */
+.divider {
+  width: 5px;
+  background: #ccc;
+  cursor: col-resize;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* =========================
+   YouTube RWD
+========================= */
+.video-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 70vh;
+  margin-top: 12px;
+}
+
+.video-wrapper img {
+  display: block;
+}
+   
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* =========================
+   Mobile Drawer Mode
+========================= */
+@media (max-width: 768px) {
+
+  #menuToggle {
+    display: inline-block;
+  }
+
+  .container {
+    height: calc(100vh - 56px);
+  }
+
+  .menu {
+    position: fixed;
+    top: 56px;
+    left: -280px;
+    width: 280px;
+    height: calc(100vh - 56px);
+    min-width: unset;
+    background: #f2f2f2;
+    z-index: 999;
+    transition: left 0.25s ease;
+  }
+
+  .menu.show {
+    left: 0;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .content {
+    padding: 16px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Glass Header -->
+<div class="app-header">
+  <button id="menuToggle">☰</button>
+  Ergonomics - How To
+</div>
+
+<div class="container">
+  <ul class="menu" id="menu"></ul>
+  <div class="divider" id="divider"></div>
+  <div class="content" id="content">
+    <p>Select a demo from the menu.</p>
+  </div>
+</div>
+
+<script>
+/* =========================
+   Data
+========================= */
+const pages = [
+  {
+    title: "Credential",
+    videoId: "",
+    desc: `
+    Visual Components <a href="mailto:Mustafa.Kamal@VisualComponents.com">Mustafa.Kamal@VisualComponents.com</a><br>
+    Work(s) Ergo <a href="mailto:info@worksergo.com">info@worksergo.com</a>
+    `
+  }
+];
+
+/* =========================
+   YouTube
+========================= */
+function youtubeEmbed(id) {
+  if (!id) return "";
+  return `
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/${id}"
+        allowfullscreen>
+      </iframe>
+    </div>
+  `;
+}
+
+/* =========================
+   Show Page
+========================= */
+function showPage(index) {
+  const p = pages[index];
+  
+  const imgHtml = p.image ? `
+    <div style="width: 100%; margin-top: 12px;">
+      <img src="${p.image}" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+    </div>
+  ` : "";
+
+  content.innerHTML = `
+    <h2>${p.title}</h2>
+    <div style="line-height: 1.6;">${p.desc}</div>
+    ${imgHtml}
+    ${youtubeEmbed(p.videoId)}
+  `;
+
+  document.querySelectorAll(".menu li")
+    .forEach((li, i) => li.classList.toggle("active", i === index));
+
+  if (window.innerWidth <= 768) {
+    menu.classList.remove("show");
+  }
+}
+
+/* =========================
+   Build Menu
+========================= */
+const menu = document.getElementById("menu");
+const content = document.getElementById("content");
+
+pages.forEach((p, i) => {
+  const li = document.createElement("li");
+  li.textContent = p.title;
+  li.onclick = () => showPage(i);
+  menu.appendChild(li);
+});
+
+/* =========================
+   Mobile Toggle
+========================= */
+document.getElementById("menuToggle").onclick = () => {
+  menu.classList.toggle("show");
+};
+
+/* =========================
+   Divider Drag (Desktop)
+========================= */
+const divider = document.getElementById("divider");
+let dragging = false;
+
+divider.addEventListener("mousedown", () => {
+  dragging = true;
+  document.body.style.cursor = "col-resize";
+});
+
+document.addEventListener("mouseup", () => {
+  dragging = false;
+  document.body.style.cursor = "";
+});
+
+document.addEventListener("mousemove", e => {
+  if (!dragging || window.innerWidth <= 768) return;
+
+  const rect = document.querySelector(".container").getBoundingClientRect();
+  const w = e.clientX - rect.left;
+
+  if (w > 200 && w < 600) {
+    menu.style.width = w + "px";
+  }
+});
+</script>
+
+</body>
+</html>
