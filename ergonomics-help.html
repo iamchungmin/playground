@@ -209,14 +209,25 @@ const pages = [
     `
   },  
   {
+    title: "Coordinate Systems",
+    desc: `    
+    <ol>
+       <li><strong>World</strong> is a global coordinate system with a fixed origin.</li>
+       <li><strong>Parent</strong> references the object coordinate system of a selected component's parent. If a component is not attached to a node in another component, the parent of a selected component is the 3D world (simulation root node). In that case, both the World and Parent coordinate systems would have the same origin.</li>
+       <li><strong>Object</strong> references a selected component's coordinate system. That is, the location of a component is relative to its own origin.</li>
+       <li><a href="https://help.visualcomponents.com/4.10/Premium/en/English/Getting%20Started/Moving_and_rotating_components.htm" target="_blank">Moving and Rotating Components</a></li>
+    </ol>     
+    <img src="https://iamchungmin.github.io/playground/Coordinate-Systems.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+  },
+  {
     title: "Collision Detection",
     desc: `    
     <ol>
-       <li>Switch to the PROGRAM tab</li>
-       <li>Check the Enable Detectors box</li>
-       <li>Move either the left or right hand freely</li>
-       <li><a href="https://help.visualcomponents.com/4.10/Premium/en/English/Robot%20Programming/Other%20Operations/Collision_Detectors.htm" target="_blank">Collision Detectors</li>
-       <li><a href="https://help.visualcomponents.com/4.10/Premium/en/English/Robot%20Programming/Other%20Operations/Detecting_collisions.htm" target="_blank">Detecting Collisions</li>              
+       <li>Switch to the PROGRAM tab.</li>
+       <li>Check the Enable Detectors box.</li>
+       <li>Move either the left or right hand freely.</li>
+       <li><a href="https://help.visualcomponents.com/4.10/Premium/en/English/Robot%20Programming/Other%20Operations/Collision_Detectors.htm" target="_blank">Collision Detectors</a></li>
+       <li><a href="https://help.visualcomponents.com/4.10/Premium/en/English/Robot%20Programming/Other%20Operations/Detecting_collisions.htm" target="_blank">Detecting Collisions</a></li>              
     </ol>   
     <img src="https://iamchungmin.github.io/playground/Collision-Detection.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
     `
