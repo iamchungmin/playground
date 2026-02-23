@@ -169,16 +169,28 @@ body {
 ========================= */
 const pages = [
   {
+     title: "Contact",
+     desc: `
+		Visual Components <a href="mailto:Mustafa.Kamal@VisualComponents.com">Mustafa.Kamal@VisualComponents.com</a><br>
+		Work(s) Ergo <a href="mailto:info@worksergo.com">info@worksergo.com</a>
+		`
+  },
+  {
+     title: "Analysis Tools",
+     desc: `<img src="http://iamchungmin.github.io/playground/images/Analysis-Tools.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">        
+    `
+  },
+  {
     title: "Setup",
     desc: `
     <ol>
        <li>Close Visual Components.</li>
-       <li>Download the <a href="https://ecat.visualcomponents.net/elib/BetaComponents/Plugin.WorksErgoAPI.zip" target="_blank"">Plugin</a>.</li>
+       <li>Download the <a href="https://forum.visualcomponents.com/t/work-s-ergonomics-plugin/9025" target="_blank"">Plugin</a>.</li>
        <li>Extract the ZIP file and place the DLL file into the Visual Components installation directory (e.g., C:\\Program Files\\Visual Components\\Visual Components &lt;Essentials, Professional, or Premium&gt; 4.10\\).</li>
        <li>Launch Visual Components.</li>
        <li>Go to <strong>eCat</strong> > <strong>Models By Type</strong> > <strong>Ergonomics</strong> > <strong>Work(s)</strong> and import the <strong>Digital Human Model</strong> component.</li>       
        <li>Select the DHM, click the <strong>Update Credential</strong> button, and enter your Username and Application Password. If you do not have these, please contact <a href="mailto:info@worksergo.com">Work(s) Ergo</a>.<br>
-           <img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Credential.png" style="width: 100%; height: auto; display: block; border-radius: 4px;"></li>
+           <img src="http://iamchungmin.github.io/playground/images/Credential.png" style="width: 100%; height: auto; display: block; border-radius: 4px;"></li>
        <li>You are now ready to go!</li>
     </ol>
     `
@@ -187,7 +199,7 @@ const pages = [
     title: "Units and Theme",
     desc: `
     <p>You can configure the units and the theme in the backstage.</p>
-    <img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Units-Theme.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+    <img src="http://iamchungmin.github.io/playground/images/Units-Theme.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
     `
   },
   {
@@ -199,11 +211,11 @@ const pages = [
     <ol>
        <li>Select either the left or right hand.</li>
        <li>You can manually modify the <strong>X, Y, Z, Rx, Ry, and Rz</strong> values.<br>
-           <img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Snapping-Selection.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+           <img src="http://iamchungmin.github.io/playground/images/Snapping-Selection.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
        </li>
        <li>Alternatively, you can use the <a href="https://help.visualcomponents.com/4.10/Premium/en/English/3D%20Operations/Snapping_components.htm" target="_blank">Snapping tool</a>.</li>
        <li>To keep the palm perpendicular to a surface, check <strong>Set Orientation</strong> and set <strong>Align Axis</strong> to <strong>'-X'</strong>.
-       <br><img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Snapping-Preview.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+       <br><img src="http://iamchungmin.github.io/playground/images/Snapping-Preview.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
        </li>
     </ol>       
     `
@@ -217,7 +229,7 @@ const pages = [
        <li><strong>Object</strong> references a selected component's coordinate system. That is, the location of a component is relative to its own origin.</li>
        <li><a href="https://help.visualcomponents.com/4.10/Premium/en/English/Getting%20Started/Moving_and_rotating_components.htm" target="_blank">Moving and Rotating Components</a></li>
     </ol>     
-    <img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Coordinate-Systems.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+    <img src="http://iamchungmin.github.io/playground/images/Coordinate-Systems.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
     `
   },
   {
@@ -230,7 +242,7 @@ const pages = [
        <li><a href="https://help.visualcomponents.com/4.10/Premium/en/English/Robot%20Programming/Other%20Operations/Collision_Detectors.htm" target="_blank">Collision Detectors</a></li>
        <li><a href="https://help.visualcomponents.com/4.10/Premium/en/English/Robot%20Programming/Other%20Operations/Detecting_collisions.htm" target="_blank">Detecting Collisions</a></li>              
     </ol>   
-    <img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Collision-Detection.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+    <img src="http://iamchungmin.github.io/playground/images/Collision-Detection.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
     `
   },
   {
@@ -243,8 +255,8 @@ const pages = [
        <li>Define the offset distance and the quantity.</li>       
        <li>Click the <strong>Clone</strong> button.</li>
        <li>If you have set <strong>Select Barrier Objects</strong>, you will be prompted to choose whether to clone the current barriers or use the same barriers.</li>
-       <li>If you have set <strong>Eye Gaze Target</strong>, you will be prompted to choose whether to clone the current eye gaze target or use the same eye gaze target.<br><img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Cloning-DHM-Barrier-Eye-Gaze-Target.png" style="width: 30%; height: auto; display: block; border-radius: 4px;"></li>
-       <li>If you are using the default <strong>Copy/Paste</strong> commands in Visual Components, ensure the <strong>Attach Hands?</strong> option is enabled, or make sure to select the <strong>Floating hands</strong> simultaneously with the DHM.<br><img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Cloning-DHM.png" style="width: 100%; height: auto; display: block; border-radius: 4px;"></li>
+       <li>If you have set <strong>Eye Gaze Target</strong>, you will be prompted to choose whether to clone the current eye gaze target or use the same eye gaze target.<br><img src="http://iamchungmin.github.io/playground/images/Cloning-DHM-Barrier-Eye-Gaze-Target.png" style="width: 30%; height: auto; display: block; border-radius: 4px;"></li>
+       <li>If you are using the default <strong>Copy/Paste</strong> commands in Visual Components, ensure the <strong>Attach Hands?</strong> option is enabled, or make sure to select the <strong>Floating hands</strong> simultaneously with the DHM.<br><img src="http://iamchungmin.github.io/playground/images/Cloning-DHM.png" style="width: 100%; height: auto; display: block; border-radius: 4px;"></li>
     </ol>    
     `
   },
@@ -252,7 +264,7 @@ const pages = [
     title: "Attach Hands?",
     desc: `    
     <p>If you want to keep the <strong>Floating Hands</strong> in a fixed position while moving the body, you can disable the <strong>Attach Hands?</strong> option.</p>    
-    <img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Attach-Hands.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+    <img src="http://iamchungmin.github.io/playground/images/Attach-Hands.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
     `
   },
   {
@@ -264,7 +276,7 @@ const pages = [
        <li>The <strong>horizontal blue cylinder</strong> is used to switch between different Task Types.</li>
        <li>For specific Task Types, a <strong>small pink cylinder</strong> will appear; clicking it will reset the DHM to its <strong>ready posture</strong> (pre-task pose).</li>
     </ol>
-    <img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Controller.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+    <img src="http://iamchungmin.github.io/playground/images/Controller.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">
     `
   },
   {
@@ -277,7 +289,7 @@ const pages = [
        <li>Activate <strong>Interact</strong> mode.</li>
        <li>You can resize the barrier by dragging any of its six faces. The origin will always remain at the exact center of the component throughout the scaling process.
        <br>
-       <img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Barrier.png" style="width: 100%; height: auto; display: block; border-radius: 4px;"></li>
+       <img src="http://iamchungmin.github.io/playground/images/Barrier.png" style="width: 100%; height: auto; display: block; border-radius: 4px;"></li>
     </ol>    
     `
   },
@@ -285,23 +297,18 @@ const pages = [
      title: "Report",
      desc: `    
      <p>Click <strong>Open Subfolder</strong>, and you will find the <strong>Analysis Report</strong> (Excel file) and all related images within the directory.</p>
-     <img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Report.png" style="width: 100%; height: auto; display: block; border-radius: 4px;"></li>
+     <img src="http://iamchungmin.github.io/playground/images/Report.png" style="width: 100%; height: auto; display: block; border-radius: 4px;"></li>
     `
   },
   {
      title: "Rendering",
      desc: `    
      <ol>
-       <li>We recommend selecting Realistic shaded as your render mode.<br><img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Render-Mode.png" style="width: 30%; height: auto; display: block; border-radius: 4px;"></li>
-       <li>Alternatively, you can use the free <a href="https://forum.visualcomponents.com/t/blender-addon-blenderer/773" target="_blank">Blenderer add-on</a> to generate photorealistic images.<br><img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Blenderer.png" style="width: 100%; height: auto; display: block; border-radius: 4px;"></li>      
+       <li>We recommend selecting Realistic shaded as your render mode.<br><img src="http://iamchungmin.github.io/playground/images/Render-Mode.png" style="width: 30%; height: auto; display: block; border-radius: 4px;"></li>
+       <li>Alternatively, you can use the free <a href="https://forum.visualcomponents.com/t/blender-addon-blenderer/773" target="_blank">Blenderer add-on</a> to generate photorealistic images.<br><img src="http://iamchungmin.github.io/playground/images/Blenderer.png" style="width: 100%; height: auto; display: block; border-radius: 4px;"></li>      
      </ol>         
     `
-  },
-  {
-     title: "Analysis Tools",
-     desc: `<img src="https://ecat.visualcomponents.net/elib/BetaComponents/images/Analysis-Tools.png" style="width: 100%; height: auto; display: block; border-radius: 4px;">        
-    `
-  },
+  }  
 ];
 
 /* =========================
